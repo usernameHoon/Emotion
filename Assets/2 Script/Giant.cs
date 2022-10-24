@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Giant : MonoBehaviour
-{
-    enum GiantState { Stop, Move, Search}
+public class Giant : MonoBehaviour {
+    enum GiantState { Stop, Move, Search }
     [SerializeField]
     GiantState state;
     /* 
@@ -31,9 +29,23 @@ public class Giant : MonoBehaviour
     // 이동 중 플레이어 발견
     bool isDiscovery;
     float lastDiscoveryPos;
+    public bool isAtkHand;
 
     // 벽 뒤 확인
+    public Transform playerHidePillar = null;
     float searchingTime;
+    bool isScan;
+    bool scanStart;
+    [SerializeField, Tooltip("기둥 잡는 손")]
+    GameObject HoldingPillarHand;
+    public bool holdinPillarHandOut;
+    [SerializeField, Tooltip("플레이어 확인공격 하는 손")]
+    GameObject scanAtkFist;
+    public bool scanMove;
+    bool scanMoveStart;
+    bool scanAtk;
+    public bool scanAtkPunch;
+    bool scanAtkPunchFirst;
     int StopCnt;
 
     [SerializeField]
@@ -61,9 +73,9 @@ public class Giant : MonoBehaviour
         patternTime = 0;
         walkTime = 4;
         moveCount = 0;
-        searchingTime = 2f;
+        searchingTime = 99f;
 
-        eyeLight = transform.GetChild(0);
+        //eyeLight = transform.GetChild(0);
 
         player = GameObject.Find("player").GetComponent<PlayerVsGiant>();
         playerTr = GameObject.Find("player").transform;
@@ -73,17 +85,52 @@ public class Giant : MonoBehaviour
             return;
         renderer.flipX = !isLeft;
         patternTime += Time.deltaTime;
+        AttackGiantHandEnable();
 
         StateUpdate();
         PosXLimit();
-        
-        eyeLight.localEulerAngles = isLeft ? Vector3.forward * 90 : Vector3.forward * -90;
+        if (scanMove) {
+            if (scanMoveStart) {
+                scanMoveStart = false;
+                if (isLeft) {
+                    transform.position += Vector3.left * 4f;
+                }
+                else {
+                    transform.position += Vector3.right * 4f;
+                }
+            }
+        }
+        if (scanAtkPunch) {
+            // 기둥 뒤 확인 후 공격
+            if (scanAtkPunchFirst) {
+                scanAtkPunchFirst = false;
+                if (isLeft) {
+                    scanAtkFist.transform.localPosition = new Vector2(-3.3f, 3.6f);
+                }
+                else {
+                    scanAtkFist.transform.localPosition = new Vector2(3.3f, 3.6f);
+                }
+                scanAtkFist.GetComponent<SpriteRenderer>().flipX = renderer.flipX;
+                scanAtkFist.SetActive(true);
+                StartCoroutine(PlayerDie());
+            }
+        }
+        else {
+            scanAtkFist.SetActive(false);
+
+        }
+        if (holdinPillarHandOut) {
+            Debug.Log("TESt");
+            HoldingPillarHand.SetActive(false);
+            holdinPillarHandOut = false;
+        }
+        //eyeLight.localEulerAngles = isLeft ? Vector3.forward * 90 : Vector3.forward * -90;
 
         // 가속
         if (1 > curSpeed && state == GiantState.Move) {
             curSpeed += Time.deltaTime * 3;
         }
-        if(audio.time > 3.2f) {
+        if (audio.time > 3.2f) {
             audio.Stop();
         }
     }
@@ -121,7 +168,8 @@ public class Giant : MonoBehaviour
                 if (isDiscovery) {
                     // 발견했다면? 마지막 발견 위치까지 걸어가지
                     float dis = lastDiscoveryPos - transform.position.x > 0 ? lastDiscoveryPos - transform.position.x : (lastDiscoveryPos - transform.position.x) * -1;
-                    Debug.Log("거리 ? " + dis);
+                    //Debug.Log("거리 ? " + dis);
+                    Debug.Log("기둥이 있나? ");
                     if (dis < 15) {
                         // 플레이어가 기둥 뒤에 없다면 공격
                         if (!player.IsHide) {
@@ -129,13 +177,34 @@ public class Giant : MonoBehaviour
                             patternTime = -4;
                             state = GiantState.Stop;
                             // 0.9166666666초 후에 플레이어 사망 처리
-                            StartCoroutine(PlayerDie());
+                            //StartCoroutine(PlayerDie());
                             isDiscovery = false;
                         }
                         // 플레이어가 기둥 뒤에 있어서 숨었다면 기둥 뒤 확인
-                        else {
-                            // 기둥 뒤 확인
-                            isDiscovery = false;
+                        else if (playerHidePillar) {
+                            dis = playerHidePillar.position.x - transform.position.x > 0 ? playerHidePillar.position.x - transform.position.x : (playerHidePillar.position.x - transform.position.x) * -1;
+                            Debug.Log("기둥 뒤 확인 : " + dis);
+                            if (dis < 6.1f) {
+                                // 기둥 뒤 확인
+                                if (!scanStart) {
+                                    state = GiantState.Search;
+                                    patternTime = 0;
+                                    scanAtk = false;
+                                    anim.SetBool("isScan", false);
+                                    anim.SetTrigger("ScanAtkTrigger");
+                                    if (isLeft) {
+                                        HoldingPillarHand.transform.position = new Vector3(playerHidePillar.position.x - 2.6f, -1.5f);
+                                    }
+                                    else {
+                                        HoldingPillarHand.transform.position = new Vector3(playerHidePillar.position.x + 2.5f, -1.5f);
+                                    }
+                                    HoldingPillarHand.SetActive(true);
+                                    StopAllCoroutines();
+                                    scanStart = true;
+                                    scanMoveStart = true;
+                                }
+                                isDiscovery = false;
+                            }
                         }
                     }
                 }
@@ -165,7 +234,22 @@ public class Giant : MonoBehaviour
                 // State.Move 끄는거 MoveLerp()에 있음
                 break;
             case GiantState.Search:
-                if (searchingTime < patternTime) {
+                if(patternTime > 1) {
+                    if (scanAtk)
+                        return;
+                    // 플레이어가 있는지 지금부터 검사
+                    Debug.Log("검사 중");
+                    float dis = player.transform.position.x - transform.position.x > 0 ? player.transform.position.x - transform.position.x : (player.transform.position.x - transform.position.x) * -1;
+                    if (dis < 10) {
+                        // 공포 능력을 쓰지 않았다면
+                        if (!PlayerRenewal.Horroring) {
+                            scanAtk = true;
+                            anim.SetBool("isScan", true);
+                            scanAtkPunchFirst = true;
+                        }
+                    }
+                }
+                if (999 < patternTime) {
                     patternTime = 0;
                     StopCnt = 0;
                     state = GiantState.Move;
@@ -173,9 +257,20 @@ public class Giant : MonoBehaviour
                 break;
         }
     }
+    void AttackGiantHandEnable() {
+        if (isAtkHand) {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = renderer.flipX;
+            StartCoroutine(PlayerDie());
+            transform.GetChild(0).localPosition = renderer.flipX ? new Vector2(3.16f, 2.46f) : new Vector2(-3.16f, 2.46f);
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
     IEnumerator PlayerDie() {
         // @@ 테스트용 빼기
-        yield return new WaitForSeconds(0.9166f);
+        //yield return new WaitForSeconds(0.9166f);
         //player.PlayerDie();
         tempTxt.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
@@ -224,7 +319,7 @@ public class Giant : MonoBehaviour
         Vector2 originPos = transform.position;
         float progress = 0;
         bool shake = false;
-        while(progress < 1) {
+        while (progress < 1) {
             progress += 0.2f;
             if (isLeft) {
                 if (up)

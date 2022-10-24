@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Object : MonoBehaviour {
-    public enum objectName { TreeGrow, Branch3, Branch1_8, HotStone, Ceramic, Mushroom, CloudX, CloudY, SadPail, SadHotStoneSadEnd, Wind, Water, Moss }
+    public enum objectName { TreeGrow, Branch3, Branch1_8, HotStone, Ceramic, Mushroom, CloudX, CloudY, SadPail, SadHotStoneSadEnd, Wind, Water, Moss, Moss_R }
     [SerializeField]
     bool isPassObject;
     [SerializeField]
@@ -136,6 +136,9 @@ public class Object : MonoBehaviour {
                 break;
             case objectName.Moss:
                 StartCoroutine(gameObject.GetComponent<Moss>().MossAbility(player));
+                break;
+            case objectName.Moss_R:
+                StartCoroutine(gameObject.GetComponent<Moss_R>().MossAbility(player));
                 break;
         }
     }

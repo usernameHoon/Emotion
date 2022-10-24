@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
     //씬 정보 가져와서 가면 얻은 이후 맵은 기본값 true로 바꿔야 한다.
     public bool haveSadMask;
     public bool haveHorrorMask;
+    public bool haveAngryMask;
+    public bool haveHappyMask;
 
     void Awake() {
         playerAbilityOn = true;

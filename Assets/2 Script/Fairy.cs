@@ -39,6 +39,7 @@ public class Fairy : MonoBehaviour
             transform.position = new Vector2(-1.5f, transform.position.y) + playerNeedPos;
         }
     }
+
     void AnimMove() {
         if (!animMove)
             return;

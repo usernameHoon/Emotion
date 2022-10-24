@@ -13,7 +13,7 @@ public class PlayerRenewal : MonoBehaviour {
     [SerializeField]
     private float slopeCheckDistance;
     [SerializeField]
-    private float groundCheckRadius;
+    public float groundCheckRadius;
     [SerializeField]
     private float crawlSpeed;
     [SerializeField]
@@ -251,7 +251,8 @@ public class PlayerRenewal : MonoBehaviour {
                 else
                     horrorTimeTxt.text = $"{horrorCoolCurTime:N1}s";
             }
-            else if (!horroring && horrorCoolCurTime < 0) {
+            else if (!horroring && horrorCoolCurTime < 0)
+            {
                 horrorTimeTxt.text = "";
             }
         }
@@ -613,7 +614,10 @@ public class PlayerRenewal : MonoBehaviour {
         }
         if(collision.CompareTag("Mask")) {
             //¸¶½ºÅ© È¹µæ
-            if(collision.gameObject.GetComponent<Mask>().mask == Mask.MaskType.Sad) {
+            if(collision.gameObject.GetComponent<Mask>().mask == Mask.MaskType.Sad || 
+                collision.gameObject.GetComponent<Mask>().mask == Mask.MaskType.Horror ||
+                collision.gameObject.GetComponent<Mask>().mask == Mask.MaskType.Angry ||
+                collision.gameObject.GetComponent<Mask>().mask == Mask.MaskType.Happy) {
                 collision.gameObject.GetComponent<Mask>().MaskEvent(this);
                 abilityCurGauge = abilityMaxGauge;
             }

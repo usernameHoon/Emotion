@@ -2424,7 +2424,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7, y: 1.6}
+  m_Size: {x: 1.7, y: 1.45}
   m_EdgeRadius: 0
 --- !u!212 &1012637537
 SpriteRenderer:
@@ -5027,6 +5027,7 @@ MonoBehaviour:
   abilityCurGauge: 0
   abilityMaxGauge: 0
   batPoopMaxTime: 0
+  giantDebuffSpeed: 0
   dontInput: 0
   isSuperJump: 0
   animator: {fileID: 0}

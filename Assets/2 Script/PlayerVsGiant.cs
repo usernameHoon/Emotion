@@ -18,12 +18,14 @@ public class PlayerVsGiant : MonoBehaviour
     public bool IsHide { get { return isHide; } }
 
     PlayerRenewal player;
+    Giant giant;
     public void Init() {
         isStart = true;
         isHide = true;
     }
     void Awake() {
         player = GetComponent<PlayerRenewal>();
+        giant = GameObject.Find("Giant").GetComponent<Giant>();
         isHide = false;
     }
     void OnTriggerEnter2D(Collider2D collision) {
@@ -34,14 +36,18 @@ public class PlayerVsGiant : MonoBehaviour
 
         if (!isStart)
             return;
-        if(collision.CompareTag("Pillar"))
+        if (collision.CompareTag("Pillar")) {
             isHide = true;
+            giant.playerHidePillar = collision.transform;
+        }
     }
     void OnTriggerExit2D(Collider2D collision) {
         if (!isStart)
             return;
-        if(collision.CompareTag("Pillar"))
+        if (collision.CompareTag("Pillar")) {
             isHide = false;
+            giant.playerHidePillar = null;
+        }
     }
     public void GiantApproaching() {
         noiseCurTime += Time.deltaTime;

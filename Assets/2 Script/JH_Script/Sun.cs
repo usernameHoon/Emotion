@@ -1,57 +1,76 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
-public class Sun: MonoBehaviour
+public class Sun : MonoBehaviour
 {
-    [SerializeField]
-    float speed;
+    // Vector3 target = new Vector3(3, 10, 0); // µµÂø ÁöÁ¡
+    // Vector3 target = new Vector3(10, 10, 0); // µµÂø ÁöÁ¡
 
     [SerializeField]
-    PlayerRenewal player;
+    private float t;
 
-    Rigidbody2D rigid;
+    [SerializeField]
+    private Light2D light2D;
 
-    void Awake()
+    [SerializeField]
+    private float intensity;
+
+    [SerializeField]
+    GameObject player;
+
+    [SerializeField]
+    PlayerRenewal playerRenewal;
+
+    SpriteRenderer playerSpriteRenderer;
+
+    [SerializeField]
+    SpriteRenderer[] backgrounds;
+
+    Vector2 playerNeedPos;
+
+    void Awake() 
     {
-        rigid = GetComponent<Rigidbody2D>();
+        playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
     {
-        SunMove();
+        //Vector3 targetVec = new Vector3(player.transform.position.x, player.transform.position.y + 1.5f);
+        //transform.RotateAround(targetVec, Vector3.back, 3);
+        //transform.rotation = Quaternion.identity;
         Move();
+
     }
-
-    void SunMove()
-    {
-        Vector3 pos = Camera.main.WorldToViewportPoint(gameObject.transform.position); 
-
-        if (pos.x < 0f) 
-            pos.x = 0f; 
-        if (pos.x > 1f) 
-            pos.x = 1f; 
-        if (pos.y < 0f) 
-            pos.y = 0f; 
-        if (pos.y > 1f) 
-            pos.y = 1f;
-
-        gameObject.transform.position = Camera.main.ViewportToWorldPoint(pos);
-    }
-
     void Move()
     {
-        if (Mathf.Abs(player.GetComponent<Rigidbody2D>().velocity.x) > 1)
+        playerNeedPos = new Vector2(player.transform.position.x, 0);
+        if(Input.GetKey(KeyCode.RightArrow))
         {
-            //Vector2 curPos = transform.position;
-            Vector2 nextPos = new Vector2(player.H * player.ApplySpeed, 0) * (speed * 0.5f);
-            //transform.position = curPos + nextPos;
-            rigid.velocity = nextPos;
-        }
-        else
-        {
-            rigid.velocity = new Vector2(0, 0);
+            if (playerSpriteRenderer.flipX)
+            {
+                transform.position = new Vector2(0, transform.position.y) + playerNeedPos;
+            }
+
+            else
+            {
+                transform.position = new Vector2(0, transform.position.y + Time.deltaTime / t) + playerNeedPos;
+
+                if(transform.position.y > 4)
+                {
+                    t = 3.5f;
+                }
+
+                if (transform.position.y > 8)
+                {
+                    Destroy(gameObject);
+                }
+            }
+            if(light2D.intensity <= 1.0f)
+            {
+                light2D.intensity += intensity;
+            }
         }
     }
 }
