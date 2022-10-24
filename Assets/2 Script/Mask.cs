@@ -47,7 +47,7 @@ public class Mask : MonoBehaviour
             Debug.Log("Get Mask!!");
         }
         doMaskEvent = true;
-        player.dontInput = true;
+        // player.dontInput = true;
         if (maskSprite != null)
             maskSprite.gameObject.SetActive(true);
         else

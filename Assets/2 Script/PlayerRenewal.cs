@@ -301,9 +301,11 @@ public class PlayerRenewal : MonoBehaviour {
             Invoke("sadOut", 2f);
         }
     }
+
     void sadOut() {
         sading = false;
     }
+
     void HorrorSkill() {
         if (horrorD) {
             horrorD = false;
@@ -312,6 +314,7 @@ public class PlayerRenewal : MonoBehaviour {
             horroring = true;
         }
     }
+
     // 기본적인 이동 이외의 다른 요소로 인한 속도 변화 확인
     void PlusVelocity() {
         // 플레이어의 바닥이 움직이는 바닥일때
