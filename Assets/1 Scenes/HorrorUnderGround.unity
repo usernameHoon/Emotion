@@ -6927,7 +6927,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305396831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 421, y: 4.42, z: 0}
+  m_LocalPosition: {x: 423.28, y: 4.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1401116034}
@@ -7121,7 +7121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354550439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 248, y: -1, z: 0}
+  m_LocalPosition: {x: 248, y: 0.27, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1169829922}
@@ -9469,7 +9469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620269155}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 421, y: -4.23, z: 0}
+  m_LocalPosition: {x: 423.28, y: -4.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1401116034}
@@ -10518,7 +10518,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 4, y: 0.3, z: 0}
     m_Rotation: {x: 0, y: -90, z: 0}
-    m_Scale: {x: 1, y: 13, z: 5}
+    m_Scale: {x: 1, y: 4.85, z: 5}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -22965,7 +22965,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110235086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 421, y: -3, z: 0}
+  m_LocalPosition: {x: 423.28, y: -3, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1401116034}
@@ -25466,7 +25466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320086180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 684, y: -4, z: 0}
+  m_LocalPosition: {x: 150, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1810438116}
@@ -27062,9 +27062,10 @@ GameObject:
   - component: {fileID: 1491678949}
   - component: {fileID: 1491678948}
   - component: {fileID: 1491678947}
-  m_Layer: 0
+  - component: {fileID: 1491678950}
+  m_Layer: 9
   m_Name: Rocks
-  m_TagString: Untagged
+  m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27150,6 +27151,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1491678950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491678946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da6b43a4de3d7649885490dff2a85f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPassObject: 0
+  player: {fileID: 1320086182}
+  WhatIsObjectName: 0
+  anim: {fileID: 0}
+  mushroomJumpXPower: 0
+  mushroomJumpYPower: 0
+  speed: 0
+  cloudMoveStartPos: 0
+  cloudMoveEndPos: 0
+  setActiveObject: {fileID: 0}
+  boxCollider: {fileID: 0}
+  changeImage: {fileID: 0}
+  needGameObject: []
 --- !u!1 &1492192026
 GameObject:
   m_ObjectHideFlags: 0
@@ -29058,8 +29084,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675130413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 164, y: 7.74, z: 0}
-  m_LocalScale: {x: 6.5, y: 6.5, z: 13.543583}
+  m_LocalPosition: {x: 164, y: 7, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 13.543583}
   m_Children:
   - {fileID: 659158214}
   m_Father: {fileID: 210474515}
@@ -91227,7 +91253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081202592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 235, y: 6, z: 0}
+  m_LocalPosition: {x: 235, y: 10.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1692548840}
@@ -93626,7 +93652,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.55}
   serializedVersion: 2
-  m_Radius: 1.1
+  m_Radius: 0.79
 --- !u!114 &3907062032097182441
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -81,6 +81,10 @@ public class PlayerRenewal : MonoBehaviour {
     public static bool Horroring {
         get { return horroring; }
     }
+
+    private bool angryD;
+    private bool angrying;
+
     public bool isSuperJump;
     private bool test;
     private bool windBlowing;
@@ -283,6 +287,10 @@ public class PlayerRenewal : MonoBehaviour {
                     horrorD = Input.GetButton("Horror");
                 }
             }
+            if(!angrying)
+            {
+                angryD = Input.GetButton("Angry");
+            }
         }
         else {
             sadD = false;
@@ -300,10 +308,25 @@ public class PlayerRenewal : MonoBehaviour {
                 animator.SetTrigger("SadTrigger");
             Invoke("sadOut", 2f);
         }
+
+        if(angryD && !angryD)
+        {
+            angrying = true;
+            if (!GameManager.manager.haveAngryMask)
+                animator.SetTrigger("noMaskAngryTrigger");
+            else
+                animator.SetTrigger("AngryTrigger");
+            Invoke("angryOut", 2f);
+        }
     }
 
     void sadOut() {
         sading = false;
+    }
+    
+    void angryOut()
+    {
+        angrying = false;
     }
 
     void HorrorSkill() {
@@ -343,7 +366,7 @@ public class PlayerRenewal : MonoBehaviour {
         if (dontInput || isSitUp || isSuperJump)
             return;
         //능력 잠금
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
         float speed = applySpeed + batPoopSpeed + giantDebuffSpeed > 0 ? applySpeed + batPoopSpeed + giantDebuffSpeed : 0.1f;
         if (!isSlope)
@@ -360,7 +383,7 @@ public class PlayerRenewal : MonoBehaviour {
             return;
         if (!canJump || dontInput || (!jumpEnd && !animator.GetBool("isJumpPress")))
             return;
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
         if (animator.GetBool("isSit"))
             return;
@@ -405,7 +428,7 @@ public class PlayerRenewal : MonoBehaviour {
             return;
         if (/*animator.GetBool("isWalk") ||*/dontInput)
             return;
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
         if (Input.GetButton("Sit")/* && !animator.GetBool("isSit")*/) {
             animator.SetBool("isSit", true);
@@ -457,7 +480,7 @@ public class PlayerRenewal : MonoBehaviour {
         //flipX and friction and walk animation
         if (dontInput)
             return;
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
 
         if (Input.GetButton("Horizontal") && !isSitUp) {

@@ -379,10 +379,21 @@ public class Object : MonoBehaviour {
         Camera.main.gameObject.GetComponent<CameraMove>().AnimationProgress = false;
         player.dontInput = false;
     }
+
+    
+
     void PlayerAbilityGaugeUp() {
         //슬픔챕터이고, 게이지가 맥스만큼 안차있다면 실행
         if (SceneManager.GetActiveScene().buildIndex == 2) {
             if (player.abilityMaxGauge > player.abilityCurGauge) {
+                player.abilityCurGauge += 1;
+            }
+        }
+        // 분노챕터이고, 게이지가 맥스만큼 안차있다면 실행
+        if (SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            if (player.abilityMaxGauge > player.abilityCurGauge)
+            {
                 player.abilityCurGauge += 1;
             }
         }
