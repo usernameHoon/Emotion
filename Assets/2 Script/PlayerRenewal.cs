@@ -313,28 +313,60 @@ public class PlayerRenewal : MonoBehaviour
             return;
         if (dontInput)
         {
+            angryD = false;
             sadD = false;
         }
         // 플레이어능력이 켜져있나? ( 아니면 요정능력이 켜져있는 상태 )
         if (GameManager.manager.playerAbilityOn)
         {
-            if (!sading)
+            if(SceneManager.GetActiveScene().buildIndex == 2)
             {
-                sadD = Input.GetButton("Sad");
-            }
-            if (!horroring)
-            {
-                //Debug.Log(horrorCoolCurTime);
-                if (horrorCoolCurTime <= 0.0f)
+                if (!sading)
                 {
-                    horrorD = Input.GetButton("Horror");
+                    sadD = Input.GetButton("Sad");
                 }
             }
-            if(!angrying)
+
+            if (SceneManager.GetActiveScene().buildIndex == 3)
             {
-                angryD = Input.GetButton("Angry");
+                if (!sading)
+                {
+                    sadD = Input.GetButton("Sad");
+                }
+
+                if (!horroring)
+                {
+                    //Debug.Log(horrorCoolCurTime);
+                    if (horrorCoolCurTime <= 0.0f)
+                    {
+                        horrorD = Input.GetButton("Horror");
+                    }
+                }
+            }
+
+            if (SceneManager.GetActiveScene().buildIndex == 8)
+            {
+                if (!sading)
+                {
+                    sadD = Input.GetButton("Sad");
+                }
+
+                if (!horroring)
+                {
+                    //Debug.Log(horrorCoolCurTime);
+                    if (horrorCoolCurTime <= 0.0f)
+                    {
+                        horrorD = Input.GetButton("Horror");
+                    }
+                }
+
+                if (!angrying)
+                {
+                    angryD = Input.GetButton("Angry");
+                }
             }
         }
+
         else
         {
             sadD = false;
@@ -424,7 +456,7 @@ public class PlayerRenewal : MonoBehaviour
         if (dontInput || isSitUp || isSuperJump)
             return;
         //능력 잠금
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
         float speed = applySpeed + batPoopSpeed + giantDebuffSpeed > 0 ? applySpeed + batPoopSpeed + giantDebuffSpeed : 0.1f;
         if (!isSlope)
@@ -442,7 +474,7 @@ public class PlayerRenewal : MonoBehaviour
             return;
         if (!canJump || dontInput || (!jumpEnd && !animator.GetBool("isJumpPress")))
             return;
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
         if (animator.GetBool("isSit"))
             return;
@@ -494,7 +526,7 @@ public class PlayerRenewal : MonoBehaviour
             return;
         if (/*animator.GetBool("isWalk") ||*/dontInput)
             return;
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
         if (Input.GetButton("Sit")/* && !animator.GetBool("isSit")*/)
         {
@@ -556,7 +588,7 @@ public class PlayerRenewal : MonoBehaviour
         //flipX and friction and walk animation
         if (dontInput)
             return;
-        if (sading || horroring)
+        if (sading || horroring || angrying)
             return;
 
         if (Input.GetButton("Horizontal") && !isSitUp)

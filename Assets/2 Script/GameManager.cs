@@ -33,7 +33,16 @@ public class GameManager : MonoBehaviour {
     public bool haveHappyMask;
 
     void Awake() {
-        playerAbilityOn = true;
+        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 5 ||
+                SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            playerAbilityOn = true;
+        }
+        else
+        {
+            playerAbilityOn = false;
+        }
+
         if (SceneManager.GetActiveScene().buildIndex == 2) {
             thisHighMap = true;
         }
