@@ -44,6 +44,15 @@ public class bat : MonoBehaviour {
         float dis = player.position.x - transform.position.x > 0 ? player.position.x - transform.position.x : (player.position.x - transform.position.x) * -1f;
         if (dis < 30) {
             SoundManager.instance.batSoundCnt++;
+            // 가까운 거리 계산
+            if(SoundManager.instance.batSoundCnt == 1) {
+                SoundManager.instance.batDistance = dis;
+            }
+            else {
+                if(SoundManager.instance.batDistance > dis) {
+                    SoundManager.instance.batDistance = dis;
+                }
+            }
         }
     }
     void Update() {

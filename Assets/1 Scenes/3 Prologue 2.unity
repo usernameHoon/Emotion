@@ -5667,7 +5667,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: de75b01f6a05bcb4eaf2e406b0627473, type: 2}
+  - {fileID: 2100000, guid: e6d03445249d34049b953896e53f54e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12709,6 +12709,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   footStep: {fileID: 8300000, guid: 0c55531a423784b68ade54e8048e187f, type: 3}
+  jumpStep: {fileID: 0}
   chapterStageNum: 0-1
   abilityCurGauge: 0
   abilityMaxGauge: 0

@@ -7,46 +7,62 @@ public class Swap : MonoBehaviour
     public bool isChange;
 
     [SerializeField]
-    GameObject[] playerAbility;
+    FairyAbility fairyAbility;
 
     [SerializeField]
-    GameObject[] fairyAbility;
+    GameObject[] playerAbilitys;
+
+    [SerializeField]
+    GameObject[] fairyAbilitys;
+
+    [SerializeField]
+    GameObject character;
+
+    [SerializeField]
+    GameObject fairy;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         isChange = true;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Change();
     }
 
     void Change()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if (fairyAbility == null)
+            return;
+        if (fairyAbility.Sading)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             isChange = !isChange;
 
-            if(!isChange)
+            if (!isChange)
             {
-                    //fairyAbility[0].SetActive(true);
-                    //playerAbility[0].SetActive(false);
-                for(int i = 0; i < fairyAbility.Length; i++)
+                for(int i = 0; i < fairyAbilitys.Length; i++)
                 {
-                    fairyAbility[i].SetActive(true);
-                    playerAbility[i].SetActive(false);
+                    fairyAbilitys[i].SetActive(true);
+                    playerAbilitys[i].SetActive(false);
                 }
+                character.SetActive(false);
+                fairy.SetActive(true);
             }
             else if(isChange)
             {
-                for (int i = 0; i < fairyAbility.Length; i++)
+                for (int i = 0; i < fairyAbilitys.Length; i++)
                 {
-                    fairyAbility[i].SetActive(false);
-                    playerAbility[i].SetActive(true);
+                    fairyAbilitys[i].SetActive(false);
+                    playerAbilitys[i].SetActive(true);
                 }
+                character.SetActive(true);
+                fairy.SetActive(false);
             }
             Debug.Log("ÅÇ ´­¸²");
         }

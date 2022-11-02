@@ -16,6 +16,10 @@ public class ObjectManager : MonoBehaviour
     [SerializeField]
     GameObject waterBallPrefab;
     [SerializeField]
+    GameObject horrorBallPrefab;
+    [SerializeField]
+    GameObject angryBallPrefab;
+    [SerializeField]
     GameObject cloud1Prefab;
     [SerializeField]
     GameObject cloud2Prefab;
@@ -26,6 +30,8 @@ public class ObjectManager : MonoBehaviour
 
     Queue<GameObject> arrow;
     Queue<GameObject> waterBall;
+    Queue<GameObject> horrorBall;
+    Queue<GameObject> angryBall;
 
     Queue<GameObject> cloud1;
     Queue<GameObject> cloud2;
@@ -41,6 +47,10 @@ public class ObjectManager : MonoBehaviour
             Initialize(arrow, 1, "arrow");
         if (waterBallPrefab != null)
             Initialize(waterBall, 10, "waterBall");
+        if(horrorBallPrefab != null)
+            Initialize(horrorBall, 10, "horrorBall");
+        if (angryBallPrefab != null)
+            Initialize(angryBall, 10, "angryBall");
         if (cloud1Prefab != null)
             Initialize(cloud1, 30, "cloud1");
         if (cloud2Prefab != null)
@@ -54,6 +64,8 @@ public class ObjectManager : MonoBehaviour
     private void QueueReset() {
         arrow = new Queue<GameObject>();
         waterBall = new Queue<GameObject>();
+        horrorBall = new Queue<GameObject>();
+        angryBall = new Queue<GameObject>();
 
         cloud1 = new Queue<GameObject>();
         cloud2 = new Queue<GameObject>();
@@ -88,6 +100,12 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "waterBall":
                 targetPool = waterBall;
+                break;
+            case "horrorBall":
+                targetPool = horrorBall;
+                break;
+            case "angryBall":
+                targetPool = angryBall;
                 break;
             case "cloud1":
                 targetPool = cloud1;
@@ -124,7 +142,7 @@ public class ObjectManager : MonoBehaviour
         }
         Queue<GameObject> targetPool = SearchQueue(name);
 
-        if (name.Equals("waterBall")) {
+        if (name.Equals("waterBall") || name.Equals("horrorBall") || name.Equals("angryBall")) {
             obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
         targetPool.Enqueue(obj);
@@ -141,6 +159,12 @@ public class ObjectManager : MonoBehaviour
             case "waterBall":
                 returnObj = waterBallPrefab;
                 break;
+            case "horrorBall":
+                returnObj = horrorBallPrefab;
+                break;
+            case "angryBall":
+                returnObj = angryBallPrefab;
+                break;
             case "cloud1":
                 returnObj = cloud1Prefab;
                 break;
@@ -154,7 +178,7 @@ public class ObjectManager : MonoBehaviour
                 returnObj = batPoopPrefab;
                 break;
             default:
-                Debug.Log("SearchPrefab not find name Error");
+                Debug.Log("SearchPrefab not find name Error [" + name + "]");
                 break;
         }
         return returnObj;
@@ -167,6 +191,12 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "waterBall":
                 returnQueue = waterBall;
+                break;
+            case "horrorBall":
+                returnQueue = horrorBall;
+                break;
+            case "angryBall":
+                returnQueue = angryBall;
                 break;
             case "cloud1":
                 returnQueue = cloud1;

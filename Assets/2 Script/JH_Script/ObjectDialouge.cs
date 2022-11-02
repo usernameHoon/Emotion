@@ -27,9 +27,26 @@ public class ObjectDialouge : MonoBehaviour
         //{
         //    theDM.ShowDialogue(dialogue);
         //}
-        if (ObjectDialougeManager.instance.dialogueGroup.alpha == 0)
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
         {
-            theDM.ShowDialogue(dialogue);
+            if (ObjectDialougeManager.instance.dialogueGroup.alpha == 0)
+            {
+                theDM.ShowDialogue(dialogue);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            theDM.ExitDialogue();
+            gameObject.SetActive(false);
         }
     }
 

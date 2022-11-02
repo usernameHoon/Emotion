@@ -8,7 +8,7 @@ public class AlphaDown : MonoBehaviour
     float curTime = 0;
     float progress = 0;
     Text text;
-
+    
     void Awake() {
         text = GetComponent<Text>();
     }

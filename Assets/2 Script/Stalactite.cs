@@ -20,7 +20,8 @@ public class Stalactite : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite;
     CircleCollider2D col;
-    void Awake() {
+    void Awake()
+    {
         initialTransform = gameObject.transform.parent;
         //spawnDelay = 1.5f;
         //shotDelay = 2.0f;
@@ -30,18 +31,23 @@ public class Stalactite : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         col = GetComponent<CircleCollider2D>();
     }
-    void Update() {
+    void Update()
+    {
         if (!spawning) // 종유석이 자라는 중이라면 딜레이를 채우지 않는다.
             curDelay += Time.deltaTime;
     }
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         StalactiteSpawn();
         StalactiteShot();
     }
 
-    void StalactiteSpawn() {
-        if (!isSpawn) {
-            if (curDelay > spawnDelay) {
+    void StalactiteSpawn()
+    {
+        if (!isSpawn)
+        {
+            if (curDelay > spawnDelay)
+            {
                 //종유석 스폰
                 curDelay = 0;
                 spawning = true;
@@ -49,8 +55,10 @@ public class Stalactite : MonoBehaviour
             }
         }
 
-        if (spawning) {
-            if (spawnStart) {
+        if (spawning)
+        {
+            if (spawnStart)
+            {
                 // 종유석을 초기 포지션의 살짝 위로 스폰
                 gameObject.transform.position = new Vector2(initialTransform.position.x, initialTransform.position.y + 1.0f);
                 gameObject.SetActive(true);
@@ -62,22 +70,27 @@ public class Stalactite : MonoBehaviour
             rigid.velocity = new Vector2(0, -1.0f);
 
             //y포지션이 초기 포지션에 도달하면 스폰 끝
-            if (gameObject.transform.position.y <= initialTransform.position.y) {
+            if (gameObject.transform.position.y <= initialTransform.position.y)
+            {
                 rigid.velocity = Vector2.zero;
                 spawning = false;
                 isSpawn = true;
             }
         }
     }
-    void StalactiteShot() {
-        if (isSpawn) {
-            if (curDelay > shotDelay) {
+    void StalactiteShot()
+    {
+        if (isSpawn)
+        {
+            if (curDelay > shotDelay)
+            {
                 //종유석 발사
                 StartCoroutine(StalactiteShotAndInit());
             }
         }
     }
-    IEnumerator StalactiteShotAndInit() {
+    IEnumerator StalactiteShotAndInit()
+    {
         curDelay = 0;
         rigid.bodyType = RigidbodyType2D.Dynamic;
         yield return new WaitForSeconds(spawnDelay);
@@ -85,16 +98,20 @@ public class Stalactite : MonoBehaviour
         rigid.velocity = Vector2.zero;
         rigid.bodyType = RigidbodyType2D.Kinematic;
     }
-    void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.gameObject.tag == "Player") {
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
             //플레이어에 닿으면
-            if (!PlayerRenewal.Horroring) {
+            if (!PlayerRenewal.Horroring)
+            {
                 isSpawn = false;
                 StartCoroutine(collision.gameObject.GetComponent<PlayerRenewal>().Die());
                 rigid.bodyType = RigidbodyType2D.Kinematic;
             }
         }
-        if(collision.gameObject.layer == 7) {
+        if (collision.gameObject.layer == 7)
+        {
             //플랫폼에 닿으면
             isSpawn = false;
             rigid.bodyType = RigidbodyType2D.Kinematic;

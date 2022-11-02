@@ -5,6 +5,18 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     FairyAbility fairyAbility;
 
+    [SerializeField]
+    GameObject[] playerAbilitys;
+
+    [SerializeField]
+    GameObject[] fairyAbilitys;
+
+    [SerializeField]
+    GameObject character;
+
+    [SerializeField]
+    GameObject fairy;
+
     public static GameManager manager;
 
     //요정과 플레이어 능력 스왑 bool값
@@ -36,6 +48,29 @@ public class GameManager : MonoBehaviour {
         if (fairyAbility.Sading)
             return;
         if (Input.GetButtonDown("Swap"))
-            playerAbilityOn = !playerAbilityOn; 
+        {
+            playerAbilityOn = !playerAbilityOn;
+
+            if (!playerAbilityOn)
+            {
+                for (int i = 0; i < fairyAbilitys.Length; i++)
+                {
+                    fairyAbilitys[i].SetActive(true);
+                    playerAbilitys[i].SetActive(false);
+                }
+                character.SetActive(false);
+                fairy.SetActive(true);
+            }
+            else if (playerAbilityOn)
+            {
+                for (int i = 0; i < fairyAbilitys.Length; i++)
+                {
+                    fairyAbilitys[i].SetActive(false);
+                    playerAbilitys[i].SetActive(true);
+                }
+                character.SetActive(true);
+                fairy.SetActive(false);
+            }
+        }
     }
 }

@@ -33,6 +33,12 @@ public class PlayerVsGiant : MonoBehaviour
             isHide = true;
             isStart = true;
         }
+        if (collision.CompareTag("EventEnd"))
+        {
+            isHide = true;
+            isStart = false;
+            giant.EventEndHide();
+        }
 
         if (!isStart)
             return;
@@ -56,13 +62,17 @@ public class PlayerVsGiant : MonoBehaviour
             noiseCurTime = 0;
             noiseMaxTime = Random.Range(1, 2.5f);
         }
-        player.giantDebuffSpeed = -3f;
     }
     public void NotGiantApproaching() {
-        player.giantDebuffSpeed = 0;
     }
     public void PlayerDie() {
         isHide = true;
         StartCoroutine(player.Die());
+    }
+
+    public void EnvironmentPlayerDie()
+    {
+        isHide = true;
+        giant.EnvironmentPlayerDie();
     }
 }

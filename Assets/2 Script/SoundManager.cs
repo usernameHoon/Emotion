@@ -102,15 +102,23 @@ public class SoundManager : MonoBehaviour
     }
     void SoundUpdate() {
         if (isHorror) {
-
+            // 배경음
+            float volume = SoundValue.instance.bgmSound / 100f;
+            caveMixer.Atmosphere1.SetVolumeMultiplier(volume);
+            caveMixer.Atmosphere2.SetVolumeMultiplier(volume);
+            caveMixer.Atmosphere3.SetVolumeMultiplier(volume);
+            // 효과음
+            volume = SoundValue.instance.sfxSound / 100f;
+            caveMixer.Critters.SetVolumeMultiplier(volume);
+            caveMixer.WaterStream.SetVolumeMultiplier(volume);
         }
         else {
-            bgmAudio.volume = SoundValue.instance.bgmSound / 100;
+            bgmAudio.volume = SoundValue.instance.bgmSound;
         }
         if(footAudio)
-            footAudio.volume = SoundValue.instance.footSound / 100;
+            footAudio.volume = SoundValue.instance.footSound;
         foreach (AudioSource item in sfxAudio) {
-            item.volume = SoundValue.instance.sfxSound / 100;
+            item.volume = SoundValue.instance.sfxSound;
         }
     }
     void BatSoundCheckUpdate() {

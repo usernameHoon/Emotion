@@ -11,6 +11,14 @@ public class TimelineControl : MonoBehaviour
 
     public float time;
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            MySceneManager.Instance.ChangeScene(sceneName);
+        }
+    }
+
     void FixedUpdate()
     {
         StartCoroutine(LoadScene());

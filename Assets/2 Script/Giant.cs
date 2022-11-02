@@ -119,10 +119,17 @@ public class Giant : MonoBehaviour {
             scanAtkFist.SetActive(false);
 
         }
-        if (holdinPillarHandOut) {
-            Debug.Log("TESt");
+        if(!(anim.GetCurrentAnimatorStateInfo(0).IsName("Scan") || anim.GetCurrentAnimatorStateInfo(0).IsName("ScanCancel") || anim.GetCurrentAnimatorStateInfo(0).IsName("ScanAttack"))) { 
             HoldingPillarHand.SetActive(false);
-            holdinPillarHandOut = false;
+        }
+        else {
+
+            HoldingPillarHand.SetActive(true);
+        }
+        if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ScanCancel") || anim.GetCurrentAnimatorStateInfo(0).IsName("ScanAttack")) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f) {
+            state = GiantState.Stop;
+            scanStart = false;
+            Debug.Log("스캔 공격 후 스탑");
         }
         //eyeLight.localEulerAngles = isLeft ? Vector3.forward * 90 : Vector3.forward * -90;
 
@@ -169,7 +176,6 @@ public class Giant : MonoBehaviour {
                     // 발견했다면? 마지막 발견 위치까지 걸어가지
                     float dis = lastDiscoveryPos - transform.position.x > 0 ? lastDiscoveryPos - transform.position.x : (lastDiscoveryPos - transform.position.x) * -1;
                     //Debug.Log("거리 ? " + dis);
-                    Debug.Log("기둥이 있나? ");
                     if (dis < 15) {
                         // 플레이어가 기둥 뒤에 없다면 공격
                         if (!player.IsHide) {
@@ -198,6 +204,7 @@ public class Giant : MonoBehaviour {
                                     else {
                                         HoldingPillarHand.transform.position = new Vector3(playerHidePillar.position.x + 2.5f, -1.5f);
                                     }
+                                    HoldingPillarHand.GetComponent<SpriteRenderer>().flipX = renderer.flipX;
                                     HoldingPillarHand.SetActive(true);
                                     StopAllCoroutines();
                                     scanStart = true;
@@ -212,23 +219,17 @@ public class Giant : MonoBehaviour {
                 if (isLeft) {
                     if (transform.position.x > playerTr.position.x && !player.IsHide) {
                         Debug.Log("플레이어 걸림");
-                        player.GiantApproaching();
                         isDiscovery = true;
                         lastDiscoveryPos = player.transform.position.x;
-                    }
-                    else {
-                        player.NotGiantApproaching();
+                        player.GiantApproaching();
                     }
                 }
                 else {
                     if (transform.position.x < playerTr.position.x && !player.IsHide) {
                         Debug.Log("플레이어 걸림");
-                        player.GiantApproaching();
                         isDiscovery = true;
                         lastDiscoveryPos = player.transform.position.x;
-                    }
-                    else {
-                        player.NotGiantApproaching();
+                        player.GiantApproaching();
                     }
                 }
                 // State.Move 끄는거 MoveLerp()에 있음
@@ -271,11 +272,24 @@ public class Giant : MonoBehaviour {
     IEnumerator PlayerDie() {
         // @@ 테스트용 빼기
         //yield return new WaitForSeconds(0.9166f);
-        //player.PlayerDie();
-        tempTxt.gameObject.SetActive(true);
+        player.PlayerDie();
+        //tempTxt.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         // 플레이어가 죽으면, 거인의 위치는 초기 위치로 초기화
-        transform.position = new Vector2(594, -9);
+        transform.position = new Vector2(620, -9);
+    }
+    public void EnvironmentPlayerDie()
+    {
+        StartCoroutine(Enum_EnvironmentPlayerDie());
+    }
+    IEnumerator Enum_EnvironmentPlayerDie()
+    {
+        yield return new WaitForSeconds(2f);
+        isDiscovery = false;
+        patternTime = 0;
+        state = GiantState.Stop;
+        transform.position = new Vector2(620, -9);
+        StopAllCoroutines();
     }
     void FixedStateUpdate() {
         switch (state) {
@@ -321,29 +335,74 @@ public class Giant : MonoBehaviour {
         bool shake = false;
         while (progress < 1) {
             progress += 0.2f;
-            if (isLeft) {
-                if (up)
-                    transform.position = Vector2.Lerp(originPos, originPos + (Vector2.left * 1) /*+ (Vector2.up * 0.5f)*/, progress);
-                else {
-                    transform.position = Vector2.Lerp(originPos, originPos + (Vector2.left * 1)/* + (Vector2.down * 0.5f)*/, progress);
-                    if (progress >= 0.7f && !shake) {
-                        shake = true;
-                        CameraShake.instance.ShakeCoroutine();
-                        audio.Play();
-                        audio.time = 2.5f;
+            if (!isDiscovery)
+            {
+                if (isLeft)
+                {
+                    if (up)
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.left * 1) /*+ (Vector2.up * 0.5f)*/, progress);
+                    else
+                    {
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.left * 1)/* + (Vector2.down * 0.5f)*/, progress);
+                        if (progress >= 0.7f && !shake)
+                        {
+                            shake = true;
+                            CameraShake.instance.ShakeCoroutine();
+                            audio.Play();
+                            audio.time = 2.5f;
+                        }
+                    }
+                }
+                else
+                {
+                    if (up)
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.right * 1)/* + (Vector2.up * 0.5f)*/, progress);
+                    else
+                    {
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.right * 1)/* + (Vector2.down * 0.5f)*/, progress);
+                        if (progress >= 0.7f && !shake)
+                        {
+                            shake = true;
+                            CameraShake.instance.ShakeCoroutine();
+                            audio.Play();
+                            audio.time = 2.5f;
+                        }
                     }
                 }
             }
-            else {
-                if (up)
-                    transform.position = Vector2.Lerp(originPos, originPos + (Vector2.right * 1)/* + (Vector2.up * 0.5f)*/, progress);
-                else {
-                    transform.position = Vector2.Lerp(originPos, originPos + (Vector2.right * 1)/* + (Vector2.down * 0.5f)*/, progress);
-                    if (progress >= 0.7f && !shake) {
-                        shake = true;
-                        CameraShake.instance.ShakeCoroutine();
-                        audio.Play();
-                        audio.time = 2.5f;
+            else
+            {
+                Debug.Log("움직임");
+                if (isLeft)
+                {
+                    if (up)
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.left * 2) /*+ (Vector2.up * 0.5f)*/, progress);
+                    else
+                    {
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.left * 2)/* + (Vector2.down * 0.5f)*/, progress);
+                        if (progress >= 0.7f && !shake)
+                        {
+                            shake = true;
+                            CameraShake.instance.ShakeCoroutine();
+                            audio.Play();
+                            audio.time = 2.5f;
+                        }
+                    }
+                }
+                else
+                {
+                    if (up)
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.right * 2)/* + (Vector2.up * 0.5f)*/, progress);
+                    else
+                    {
+                        transform.position = Vector2.Lerp(originPos, originPos + (Vector2.right * 2)/* + (Vector2.down * 0.5f)*/, progress);
+                        if (progress >= 0.7f && !shake)
+                        {
+                            shake = true;
+                            CameraShake.instance.ShakeCoroutine();
+                            audio.Play();
+                            audio.time = 2.5f;
+                        }
                     }
                 }
             }
@@ -357,5 +416,21 @@ public class Giant : MonoBehaviour {
                 curSpeed = 0;
             }
         }
+    }
+    public void EventEndHide()
+    {
+        StartCoroutine(enum_EventEndHide());
+    }
+    IEnumerator enum_EventEndHide()
+    {
+        yield return null;
+        float progress = 0;
+        while(progress < 1)
+        {
+            progress += 0.1f;
+            renderer.color = Color.Lerp(Color.white, new Color(1, 1, 1, 0), progress);
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameObject.SetActive(false);
     }
 }

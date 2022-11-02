@@ -67,7 +67,7 @@ public class NextChapter : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerRenewal>().dontInput = true;
-            LoadingSceneManager.Instance.ChangeScene(sceneName);
+            LoadingSceneManager.Instance.ChangeScene(sceneName);    
             GameObject chapterStage = GameObject.Find("StageManager");
             chapterStage.transform.parent = default;
             chapterStage.name = "StageNum";

@@ -168,6 +168,7 @@ public class WildBoar : MonoBehaviour
         randDis = 0;
         StartCoroutine(HitNextThinkOrChase(delayTime));
     }
+
     IEnumerator HitNextThinkOrChase(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);

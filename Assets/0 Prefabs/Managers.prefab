@@ -80,6 +80,7 @@ MonoBehaviour:
   player: {fileID: 0}
   arrowPrefab: {fileID: 8290641938747167795, guid: 90af6ccb6cbd857499df6ee137a38867, type: 3}
   waterBallPrefab: {fileID: 6578963619841626172, guid: aa87e231172e8d845bdb4b3261c8168f, type: 3}
+  horrorBallPrefab: {fileID: 6578963619841626172, guid: 62645bf6501061e4ebc37d235e661443, type: 3}
   cloud1Prefab: {fileID: 1160399672679965639, guid: 2baf103353b1d3b4596c76f18ec152a2, type: 3}
   cloud2Prefab: {fileID: 6061586862913813922, guid: c8dbdec874be78647867248e196d140e, type: 3}
   cloud3Prefab: {fileID: 8755882823189332338, guid: 9e8850f46a9ed91418d165a9136356fa, type: 3}
@@ -133,6 +134,7 @@ MonoBehaviour:
   thisHighMap: 0
   abilityCnt: 4
   haveSadMask: 0
+  haveHorrorMask: 0
 --- !u!114 &5738272639430275676
 MonoBehaviour:
   m_ObjectHideFlags: 0

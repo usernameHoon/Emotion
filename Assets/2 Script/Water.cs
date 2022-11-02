@@ -27,9 +27,16 @@ public class Water : MonoBehaviour {
     }
     void DistanceCheck() {
         float dis = player.position.x - transform.position.x > 0 ? player.position.x - transform.position.x : (player.position.x - transform.position.x) * -1f;
-        if (dis < 15) {
+        if (dis < 20) {
             SoundManager.instance.waterSoundCnt++;
-            Debug.Log(dis);
+            if(SoundManager.instance.waterSoundCnt == 1) {
+                SoundManager.instance.waterDistance = dis;
+            }
+            else {
+                if(SoundManager.instance.waterDistance > dis) {
+                    SoundManager.instance.waterDistance = dis;
+                }
+            }
         }
     }
 

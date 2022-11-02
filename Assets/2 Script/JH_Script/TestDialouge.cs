@@ -18,6 +18,14 @@ public class TestDialouge : MonoBehaviour
         playerRenewal = GameObject.Find("player").GetComponent<PlayerRenewal>();
     }
 
+    void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            theDM.ExitDialogue();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))

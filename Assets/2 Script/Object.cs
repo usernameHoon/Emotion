@@ -3,8 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Object : MonoBehaviour {
-    public enum objectName { TreeGrow, Branch3, Branch1_8, HotStone, Ceramic, Mushroom, CloudX, CloudY, SadPail, SadHotStoneSadEnd, Wind, Water, Moss, Moss_R }
+public class Object : MonoBehaviour
+{
+    public enum objectName { TreeGrow, Branch3, Branch1_8, HotStone, Ceramic, Mushroom, CloudX, CloudY, SadPail, SadHotStoneSadEnd, Wind, Water, Moss, Stool, 
+        mRock, dRock, Stalactite
+    }
     [SerializeField]
     bool isPassObject;
     [SerializeField]
@@ -35,45 +38,57 @@ public class Object : MonoBehaviour {
 
     bool isPowerOn;
     bool puzzleReady;
-    public float Speed {
+    public float Speed
+    {
         get { return speed; }
     }
 
-    public objectName Name {
+    public objectName Name
+    {
         get { return WhatIsObjectName; }
     }
 
 
-    void Update() {
+    void Update()
+    {
         PassObjectUpdate();
     }
-    void PassObjectUpdate() {
+    void PassObjectUpdate()
+    {
         if (!isPassObject)
             return;
         float dis = Vector2.Distance(gameObject.transform.position, player.gameObject.transform.position);
 
-        if (dis <= 20) { // 인지범위
+        if (dis <= 20)
+        { // 인지범위
             RaycastHit2D[] playerHit = Physics2D.RaycastAll(new Vector2(player.transform.position.x + 0.1f, player.transform.position.y), Vector3.down, 1f);
             Debug.DrawRay(new Vector2(player.transform.position.x + 0.1f, player.transform.position.y), Vector3.down * 1, Color.red);
-            if (playerHit.Length > 0) {
-                foreach (RaycastHit2D hit in playerHit) {
-                    if (hit.collider.gameObject.layer == 10) {
+            if (playerHit.Length > 0)
+            {
+                foreach (RaycastHit2D hit in playerHit)
+                {
+                    if (hit.collider.gameObject.layer == 10)
+                    {
                         transform.GetChild(0).gameObject.layer = 9;
                     }
-                    else if (hit.collider.gameObject.layer == 7) {
+                    else if (hit.collider.gameObject.layer == 7)
+                    {
                         transform.GetChild(0).gameObject.layer = 10;
                     }
                 }
             }
         }
-        else {
+        else
+        {
             transform.GetChild(0).gameObject.layer = 10;
         }
     }
-    public void Skill() {
+    public void Skill()
+    {
         if (isPowerOn)
             return;
-        switch (WhatIsObjectName) {
+        switch (WhatIsObjectName)
+        {
             case objectName.TreeGrow:
                 StartCoroutine(TreeGrowAnimation());
                 isPowerOn = true;
@@ -114,11 +129,34 @@ public class Object : MonoBehaviour {
             case objectName.Water:
                 gameObject.GetComponentInChildren<Water>().WaterAbility();
                 break;
+            case objectName.mRock:
+                isPowerOn = true;
+                // StartCoroutine("RockMove");
+                gameObject.GetComponent<AngryObject>().Rock_Move();
+                PlayerAbilityGaugeUp();
+                Debug.Log("돌");
+                break;
+            case objectName.dRock:
+                isPowerOn = true;
+                // StartCoroutine("RockMove");
+                gameObject.GetComponent<AngryObject>().Rock_Destroy();
+                PlayerAbilityGaugeUp();
+                Debug.Log("돌");
+                break;
+            case objectName.Stalactite:
+                isPowerOn = true;
+                gameObject.GetComponent<AngryObject>().Stalactite_Destroy();
+                PlayerAbilityGaugeUp();
+                Debug.Log("종유석");
+                break;
         }
     }
-    public void ObjectAbility(Transform target, PlayerRenewal player) {
+
+    public void ObjectAbility(Transform target, PlayerRenewal player)
+    {
         //플레이어가 오브젝트 닿는게 트리거인 경우
-        switch (WhatIsObjectName) {
+        switch (WhatIsObjectName)
+        {
             case objectName.Mushroom:
                 StartCoroutine(SuperJump(target, player));
                 break;
@@ -137,30 +175,32 @@ public class Object : MonoBehaviour {
             case objectName.Moss:
                 StartCoroutine(gameObject.GetComponent<Moss>().MossAbility(player));
                 break;
-            case objectName.Moss_R:
-                StartCoroutine(gameObject.GetComponent<Moss_R>().MossAbility(player));
-                break;
         }
     }
-    IEnumerator AnimationReturn(float delayTime) {
+    IEnumerator AnimationReturn(float delayTime)
+    {
         yield return new WaitForSeconds(delayTime);
         anim.SetTrigger("skillEnd");
         yield return new WaitForSeconds(1f);
         isPowerOn = false;
     }
-    IEnumerator DownObjects() {
+    IEnumerator DownObjects()
+    {
         yield return new WaitForSeconds(0.5f);
-        while (true) {
+        while (true)
+        {
             needGameObject[0].transform.position = Vector2.MoveTowards(needGameObject[0].transform.position, new Vector2(needGameObject[0].transform.position.x + 1, needGameObject[0].transform.position.y - 10), 1 * Time.deltaTime);
             needGameObject[1].transform.position = Vector2.MoveTowards(needGameObject[1].transform.position, new Vector2(needGameObject[1].transform.position.x + 5, needGameObject[0].transform.position.y - 10), 1 * Time.deltaTime);
 
-            if(needGameObject[0].transform.position.y < -10.5f && needGameObject[1].transform.position.y < -10.5f) {
+            if (needGameObject[0].transform.position.y < -10.5f && needGameObject[1].transform.position.y < -10.5f)
+            {
                 yield break;
             }
             yield return null;
         }
     }
-    IEnumerator TreeGrowAnimation() {
+    IEnumerator TreeGrowAnimation()
+    {
         // 나무가 커진다.
         anim.SetTrigger("Start");
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(player.transform.position.x + 0.1f, player.transform.position.y + 0.3f), Vector3.down, 1f);
@@ -183,14 +223,18 @@ public class Object : MonoBehaviour {
         boxCollider.offset = new Vector2(boxCollider.offset.x, 1.16f);
         isPowerOn = false;
     }
-    IEnumerator SuperJump(Transform target, PlayerRenewal player) {
-        if (target.transform.position.y > transform.position.y) {
-            if (player.Rigid.velocity.y < -0.1f) {
+    IEnumerator SuperJump(Transform target, PlayerRenewal player)
+    {
+        if (target.transform.position.y > transform.position.y)
+        {
+            if (player.Rigid.velocity.y < -0.1f)
+            {
                 anim.SetTrigger("trigger");
                 yield return new WaitForSeconds(0.3f);
 
                 //현재 플레이어가 점프중이면 중단
-                if (Mathf.Abs(player.Rigid.velocity.y) >= 0.1) {
+                if (Mathf.Abs(player.Rigid.velocity.y) >= 0.1)
+                {
                     yield break;
                 }
 
@@ -204,7 +248,8 @@ public class Object : MonoBehaviour {
             }
         }
     }
-    IEnumerator CloudMove(string XY) {
+    IEnumerator CloudMove(string XY)
+    {
         Rigidbody2D rigid = GetComponentInChildren<Rigidbody2D>();
 
         isPowerOn = true;
@@ -215,18 +260,24 @@ public class Object : MonoBehaviour {
         isPassObject = false;
         rigid.bodyType = RigidbodyType2D.Kinematic;
         float dir = cloudMoveStartPos - cloudMoveEndPos > 0 ? -1 : 1;
-        switch (XY) {
+        switch (XY)
+        {
             case "X":
                 rigid.velocity = new Vector2(dir * speed, 0);
-                while (true) {
-                    if (dir > 0) {
-                        if (rigid.transform.position.x >= cloudMoveEndPos) {
+                while (true)
+                {
+                    if (dir > 0)
+                    {
+                        if (rigid.transform.position.x >= cloudMoveEndPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             break;
                         }
                     }
-                    else {
-                        if (rigid.transform.position.x <= cloudMoveEndPos) {
+                    else
+                    {
+                        if (rigid.transform.position.x <= cloudMoveEndPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             break;
                         }
@@ -237,15 +288,20 @@ public class Object : MonoBehaviour {
 
             case "Y":
                 rigid.velocity = new Vector2(0, dir * speed);
-                while (true) {
-                    if (dir > 0) {
-                        if (rigid.transform.position.y >= cloudMoveEndPos) {
+                while (true)
+                {
+                    if (dir > 0)
+                    {
+                        if (rigid.transform.position.y >= cloudMoveEndPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             break;
                         }
                     }
-                    else {
-                        if (rigid.transform.position.y <= cloudMoveEndPos) {
+                    else
+                    {
+                        if (rigid.transform.position.y <= cloudMoveEndPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             break;
                         }
@@ -257,19 +313,25 @@ public class Object : MonoBehaviour {
 
         //아래 시간 기다리고, 초기 위치로 돌아가기
         yield return new WaitForSeconds(3f);
-        switch (XY) {
+        switch (XY)
+        {
             case "X":
                 rigid.velocity = new Vector2(dir * -speed, 0);
-                while (true) {
-                    if (dir > 0) {
-                        if (rigid.transform.position.x <= cloudMoveStartPos) {
+                while (true)
+                {
+                    if (dir > 0)
+                    {
+                        if (rigid.transform.position.x <= cloudMoveStartPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             rigid.bodyType = RigidbodyType2D.Static;
                             break;
                         }
                     }
-                    else {
-                        if (rigid.transform.position.x >= cloudMoveStartPos) {
+                    else
+                    {
+                        if (rigid.transform.position.x >= cloudMoveStartPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             rigid.bodyType = RigidbodyType2D.Static;
                             break;
@@ -281,16 +343,21 @@ public class Object : MonoBehaviour {
 
             case "Y":
                 rigid.velocity = new Vector2(0, dir * -speed);
-                while (true) {
-                    if (dir > 0) {
-                        if (rigid.transform.position.y <= cloudMoveStartPos) {
+                while (true)
+                {
+                    if (dir > 0)
+                    {
+                        if (rigid.transform.position.y <= cloudMoveStartPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             rigid.bodyType = RigidbodyType2D.Static;
                             break;
                         }
                     }
-                    else {
-                        if (rigid.transform.position.y >= cloudMoveStartPos) {
+                    else
+                    {
+                        if (rigid.transform.position.y >= cloudMoveStartPos)
+                        {
                             rigid.velocity = Vector2.zero;
                             rigid.bodyType = RigidbodyType2D.Static;
                             break;
@@ -305,9 +372,10 @@ public class Object : MonoBehaviour {
         //다시 재작동할 준비    
         yield return new WaitForSeconds(2f);
         anim.SetTrigger("End");
-        isPowerOn = false;  
+        isPowerOn = false;
     }
-    IEnumerator SadEndEvent() {
+    IEnumerator SadEndEvent()
+    {
         //준비과정
         player.dontInput = true;
         Rigidbody2D rigid = setActiveObject.GetComponent<Rigidbody2D>();
@@ -322,9 +390,11 @@ public class Object : MonoBehaviour {
         SpriteRenderer chipmunkSprite = needGameObject[5].GetComponent<SpriteRenderer>();
 
         //카메라 x 702(목표)까지 이동
-        while (true) {
+        while (true)
+        {
             mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, new Vector3(702.4f, mainCamera.transform.position.y, -1), 6 * Time.deltaTime);
-            if (mainCamera.transform.position.x >= 701.9f) {
+            if (mainCamera.transform.position.x >= 701.9f)
+            {
                 break;
             }
             yield return null;
@@ -332,8 +402,10 @@ public class Object : MonoBehaviour {
         //먹구름 이동
         yield return new WaitForSeconds(0.2f);
         rigid.velocity = Vector2.right * 5;
-        while (true) {
-            if (setActiveObject.transform.localPosition.x > setActiveObject.GetComponent<Object>().cloudMoveEndPos) {
+        while (true)
+        {
+            if (setActiveObject.transform.localPosition.x > setActiveObject.GetComponent<Object>().cloudMoveEndPos)
+            {
                 rigid.velocity = Vector2.zero;
                 break;
             }
@@ -349,8 +421,10 @@ public class Object : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
         vineRigid.velocity = Vector2.right * 10;
         branchAnim.SetTrigger("sadTrigger");
-        while (true) {
-            if (needGameObject[1].transform.localPosition.x > needGameObject[1].GetComponent<Object>().cloudMoveEndPos) {
+        while (true)
+        {
+            if (needGameObject[1].transform.localPosition.x > needGameObject[1].GetComponent<Object>().cloudMoveEndPos)
+            {
                 vineRigid.velocity = Vector2.zero;
                 break;
             }
@@ -380,17 +454,18 @@ public class Object : MonoBehaviour {
         player.dontInput = false;
     }
 
-    
-
-    void PlayerAbilityGaugeUp() {
+    void PlayerAbilityGaugeUp()
+    {
         //슬픔챕터이고, 게이지가 맥스만큼 안차있다면 실행
-        if (SceneManager.GetActiveScene().buildIndex == 2) {
-            if (player.abilityMaxGauge > player.abilityCurGauge) {
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (player.abilityMaxGauge > player.abilityCurGauge)
+            {
                 player.abilityCurGauge += 1;
             }
         }
-        // 분노챕터이고, 게이지가 맥스만큼 안차있다면 실행
-        if (SceneManager.GetActiveScene().buildIndex == 8)
+
+        else if (SceneManager.GetActiveScene().buildIndex == 8)
         {
             if (player.abilityMaxGauge > player.abilityCurGauge)
             {
@@ -398,9 +473,12 @@ public class Object : MonoBehaviour {
             }
         }
     }
-    void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag == "ThrowObject") {
-            if (gameObject.tag == "Skill") {
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ThrowObject")
+        {
+            if (gameObject.tag == "Skill")
+            {
                 Skill();
             }
             ObjectManager.Instance.ReturnObject(collision.gameObject, "waterBall");

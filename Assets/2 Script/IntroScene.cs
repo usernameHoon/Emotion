@@ -11,8 +11,6 @@ public class IntroScene : MonoBehaviour
 
     int chapter1Stage = 6;
     int chapter2Stage = 6;
-    int chapter3Stage = 6;
-    int chapter4Stage = 6;
     int chapter;
     GameObject nowStageSelect;
 

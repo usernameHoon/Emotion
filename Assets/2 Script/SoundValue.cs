@@ -8,11 +8,11 @@ public class SoundValue : MonoBehaviour
 {
     public static SoundValue instance;
     [Header("사운드 옵션 변수")]
-    [Range(0,100)]
+    [Range(0,1)]
     public float bgmSound;
-    [Range(0, 100)]
+    [Range(0, 1)]
     public float sfxSound;
-    [Range(0, 100)]
+    [Range(0, 1)]
     public float footSound;
 
 
