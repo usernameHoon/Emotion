@@ -30,8 +30,19 @@ public class PlayerVsGiant : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("EventStart")) {
-            isHide = true;
-            isStart = true;
+            if (collision.transform.position.x >= 890)
+            {
+                // 마지막 추격전
+                // 거인 x879 스폰 ~> 이동
+                giant.gameObject.SetActive(true);
+                giant.LastChaseStart();
+                isHide = false;
+            }
+            else
+            {
+                isHide = true;
+                isStart = true;
+            }
         }
         if (collision.CompareTag("EventEnd"))
         {

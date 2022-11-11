@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed49e4a8511a66c44abb391566c0c60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmSound: 30
-  sfxSound: 50
-  footSound: 40
+  bgmSound: 1
+  sfxSound: 1
+  footSound: 1

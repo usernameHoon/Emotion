@@ -31,7 +31,7 @@ public class HelpScript : MonoBehaviour
         panel.SetActive(false);
     }
 
-    void HelpOnOff()
+    public void HelpOnOff()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {

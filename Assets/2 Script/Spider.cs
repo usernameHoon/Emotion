@@ -11,12 +11,6 @@ public class Spider : MonoBehaviour
     [SerializeField, Tooltip("공격이 닿는 최대거리")]
     float atkDistance;
 
-    [SerializeField]
-    float minY;
-    [SerializeField]
-    float maxY;
-
-
     bool isRunaway;
     bool isUp;
     bool doingUp;
@@ -83,8 +77,7 @@ public class Spider : MonoBehaviour
     }
     void RunawayUp() {
         Vector2 vec = transform.position;
-        // vec.y = 10.1f;
-        vec.y = maxY;
+        vec.y = 10.1f;
         transform.position = Vector2.Lerp(transform.position, vec, Time.deltaTime * 1.5f);
         if(Vector2.Distance(transform.position, vec) < 0.1f) {
             doingUp = false;
@@ -94,14 +87,14 @@ public class Spider : MonoBehaviour
         // -5.6까지 내려오기
         //Debug.Log("down");
         Vector2 vec = transform.position;
-        // vec.y = -5.7f;
-        vec.y = minY;
+        vec.y = -5.7f;
         transform.position = Vector2.Lerp(transform.position, vec, Time.deltaTime * 2f);
         if(Vector2.Distance(transform.position, vec) < 0.1f) {
             isRunaway = false;
             runTime = 0;
             anim.SetBool("isRunaway", false);
             anim.SetBool("isAtk", false);
+            isUp = false;
         }
     }
 }

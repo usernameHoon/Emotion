@@ -36,6 +36,9 @@ public class Object : MonoBehaviour
     [SerializeField]
     GameObject[] needGameObject;
 
+    [SerializeField]
+    GameObject dialouge;
+
     bool isPowerOn;
     bool puzzleReady;
     public float Speed
@@ -113,11 +116,13 @@ public class Object : MonoBehaviour
                 break;
             case objectName.Ceramic:
                 StartCoroutine(DownObjects());
+                gameObject.GetComponent<SpriteRenderer>().sprite = changeImage;
                 break;
             //½½ÇÄ ¸¶Áö¸· ÄÆ½Å ´É·Â
             case objectName.SadPail:
                 puzzleReady = true;
                 gameObject.GetComponent<SpriteRenderer>().sprite = changeImage;
+                StartCoroutine("DialougeOn");
                 break;
             case objectName.SadHotStoneSadEnd:
                 if (!needGameObject[3].GetComponent<Object>().puzzleReady)
@@ -177,6 +182,15 @@ public class Object : MonoBehaviour
                 break;
         }
     }
+
+    IEnumerator DialougeOn()
+    {
+        yield return new WaitForSeconds(1.5f);
+        dialouge.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        isPowerOn = false;
+    }
+
     IEnumerator AnimationReturn(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);

@@ -46,7 +46,8 @@ public class ObjectDialouge : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             theDM.ExitDialogue();
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(this);
         }
     }
 

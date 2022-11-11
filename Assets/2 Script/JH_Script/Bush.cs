@@ -7,6 +7,12 @@ public class Bush : MonoBehaviour
     [SerializeField]
     private GameObject[] gameObjects;
 
+    [SerializeField]
+    private GameObject[] dirs;
+
+    [SerializeField]
+    private GameObject keys;
+
     CameraMove cameraMove;
 
     void Start()
@@ -25,7 +31,22 @@ public class Bush : MonoBehaviour
 
                 gameObjects[i].SetActive(true);
             }
+            keys.SetActive(false);
         }
         cameraMove.GetComponent<CameraMove>().enabled = false;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "player")
+        {
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                if (dirs[i] == null)
+                    return;
+
+                dirs[i].SetActive(true);
+            }
+        }
     }
 }

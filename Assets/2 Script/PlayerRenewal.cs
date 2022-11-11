@@ -84,6 +84,8 @@ public class PlayerRenewal : MonoBehaviour
     private bool sadD;
     private bool sading;
     private bool horrorD;
+    private bool angryD;
+    private bool angrying;
     private static bool horroring;
     public static bool Horroring
     {
@@ -126,8 +128,6 @@ public class PlayerRenewal : MonoBehaviour
     }
 
     int chapter, stage = 0;
-    private bool angryD;
-    private bool angrying;
 
     void Awake()
     {
@@ -317,6 +317,7 @@ public class PlayerRenewal : MonoBehaviour
             sadD = false;
         }
         // 플레이어능력이 켜져있나? ( 아니면 요정능력이 켜져있는 상태 )
+        // 챕터(scene)에 맞게 능력을 써지게(임시)
         if (GameManager.manager.playerAbilityOn)
         {
             if(SceneManager.GetActiveScene().buildIndex == 2)
