@@ -140,6 +140,7 @@ public class ObjectManager : MonoBehaviour
             //이미 오브젝트가 돌아와 있다면
             return;
         }
+
         Queue<GameObject> targetPool = SearchQueue(name);
 
         if (name.Equals("waterBall") || name.Equals("horrorBall") || name.Equals("angryBall")) {

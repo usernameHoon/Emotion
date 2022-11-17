@@ -18,6 +18,9 @@ public class Spider : MonoBehaviour
 
     float atkDelay;
 
+    public float upY;
+    public float downY;
+
     Transform playerTr;
     public AnimationCurve curve;
     Animator anim;
@@ -77,7 +80,8 @@ public class Spider : MonoBehaviour
     }
     void RunawayUp() {
         Vector2 vec = transform.position;
-        vec.y = 10.1f;
+        // vec.y = 10.1f;
+        vec.y = upY;
         transform.position = Vector2.Lerp(transform.position, vec, Time.deltaTime * 1.5f);
         if(Vector2.Distance(transform.position, vec) < 0.1f) {
             doingUp = false;
@@ -87,7 +91,8 @@ public class Spider : MonoBehaviour
         // -5.6까지 내려오기
         //Debug.Log("down");
         Vector2 vec = transform.position;
-        vec.y = -5.7f;
+        // vec.y = -5.7f;
+        vec.y = downY;
         transform.position = Vector2.Lerp(transform.position, vec, Time.deltaTime * 2f);
         if(Vector2.Distance(transform.position, vec) < 0.1f) {
             isRunaway = false;

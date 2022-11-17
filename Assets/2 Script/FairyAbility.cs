@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class FairyAbility : MonoBehaviour {
     [SerializeField]
@@ -38,9 +39,21 @@ public class FairyAbility : MonoBehaviour {
 
     void Update() {
         SkillDownCheck();
-        SadSkill();
-        HorrorSkill();
-        AngrySkill();
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            SadSkill();
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            SadSkill();
+            HorrorSkill();
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            SadSkill();
+            HorrorSkill();
+            AngrySkill();
+        }
     }
     void SkillDownCheck() {
         if (!GameManager.manager.playerAbilityOn) {

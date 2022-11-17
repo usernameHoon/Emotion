@@ -133,7 +133,7 @@ public class AngryWildboar : MonoBehaviour
                     randDis = (spriteRenderer.flipX ? 0f : 0f);
                     break;
             }
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("WildBoar run"))
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Centipede_Move"))
                 anim.SetTrigger("run");
         }
         else if (!hit)

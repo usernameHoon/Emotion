@@ -9,6 +9,9 @@ public class Mask : MonoBehaviour
     [SerializeField]
     Image maskSprite;
 
+    [SerializeField]
+    GameObject maskDialog;
+
     public MaskType mask;
 
     bool doMaskEvent;
@@ -37,12 +40,15 @@ public class Mask : MonoBehaviour
         {
             GameManager.manager.haveAngryMask = true;
         }
-        if (maskSprite) {
+        if (maskSprite) 
+        {
             doMaskEvent = true;
             player.dontInput = true;
             maskSprite.gameObject.SetActive(true);
+            maskDialog.SetActive(true);
         }
-        else {
+        else 
+        {
             gameObject.SetActive(false);
         }
     }

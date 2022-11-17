@@ -1382,16 +1382,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChange: 0
-  playerAbility:
-  - {fileID: 2410237121868118121}
-  - {fileID: 937310471}
-  - {fileID: 70010734}
-  - {fileID: 246703094}
-  fairyAbility:
-  - {fileID: 1997096295}
-  - {fileID: 872503354}
-  - {fileID: 929571420}
-  - {fileID: 1417348963}
+  fairyAbility: {fileID: 0}
+  playerAbilitys: []
+  fairyAbilitys: []
+  character: {fileID: 0}
+  fairy: {fileID: 0}
 --- !u!1 &198072860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,6 +2736,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   footStep: {fileID: 8300000, guid: 0c55531a423784b68ade54e8048e187f, type: 3}
+  jumpStep: {fileID: 0}
   chapterStageNum: 
   abilityCurGauge: 0
   abilityMaxGauge: 0
@@ -34414,7 +34410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1267236486}
   m_Layer: 0
-  m_Name: 2-6
+  m_Name: 2-12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -542,7 +542,19 @@ public class PlayerRenewal : MonoBehaviour
         // 앉아있는 플레이어 일어나기.
         if ((Input.GetButtonUp("Sit") || !Input.GetButton("Sit")) && !dontInput)
         {
-            if (!Physics2D.Raycast(transform.position + Vector3.up * 1.5f + Vector3.right * 0.2f, Vector3.up, 1.4f))
+            int layerMask = (1 << 7) + (1 << 9);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up * 1.5f + Vector3.right * 0.2f, Vector3.up, 1.4f, layerMask);
+            bool hitCheck = hit;
+            if (hit)
+            {
+                if (hit.transform.GetComponent<Object>())
+                {
+                    Object obj = hit.transform.GetComponent<Object>();
+                    if (obj.IsPassObject)
+                        hitCheck = false;
+                }
+            }
+            if (!hitCheck)
             {
                 applySpeed = walkSpeed;
                 animator.SetTrigger("sitTrigger");

@@ -10,6 +10,7 @@ public class Object : MonoBehaviour
     }
     [SerializeField]
     bool isPassObject;
+    public bool IsPassObject { get { return isPassObject; } }
     [SerializeField]
     PlayerRenewal player;
     [SerializeField]

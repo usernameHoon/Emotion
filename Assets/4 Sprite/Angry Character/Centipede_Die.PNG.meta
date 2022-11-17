@@ -1,0 +1,420 @@
+fileFormatVersion: 2
+guid: 7dfbc802fe75df04490c72abe3d2d537
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8644746000692774356
+    second: Centipede_Die_0
+  - first:
+      213: 5242008481486787241
+    second: Centipede_Die_1
+  - first:
+      213: -7309449221947680403
+    second: Centipede_Die_2
+  - first:
+      213: -3462668619000502343
+    second: Centipede_Die_3
+  - first:
+      213: -3348198432602985692
+    second: Centipede_Die_4
+  - first:
+      213: 7760075636965627721
+    second: Centipede_Die_5
+  - first:
+      213: 6263490653001889680
+    second: Centipede_Die_6
+  - first:
+      213: 7381154148838681945
+    second: Centipede_Die_7
+  - first:
+      213: -5889283612297286106
+    second: Centipede_Die_8
+  - first:
+      213: 104646191439017704
+    second: Centipede_Die_9
+  - first:
+      213: 3251185320551814651
+    second: Centipede_Die_10
+  - first:
+      213: 2254831052236682692
+    second: Centipede_Die_11
+  - first:
+      213: 6361821531574849757
+    second: Centipede_Die_12
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Centipede_Die_0
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 1585
+        width: 938
+        height: 221
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d585c09fae48f770800000000000000
+      internalID: 8644746000692774356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_1
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 1526
+        width: 834
+        height: 366
+      alignment: 9
+      pivot: {x: 0.48880467, y: 0.23597826}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a2da98c0fa5fb840800000000000000
+      internalID: 5242008481486787241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_2
+      rect:
+        serializedVersion: 2
+        x: 2276
+        y: 1458
+        width: 752
+        height: 455
+      alignment: 9
+      pivot: {x: 0.48137552, y: 0.18981987}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d699d06e8ae9f8a90800000000000000
+      internalID: -7309449221947680403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_3
+      rect:
+        serializedVersion: 2
+        x: 3300
+        y: 1329
+        width: 627
+        height: 590
+      alignment: 9
+      pivot: {x: 0.5074461, y: 0.14243019}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b7259dac3122ffc0800000000000000
+      internalID: -3462668619000502343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 692
+        width: 570
+        height: 651
+      alignment: 9
+      pivot: {x: 0.48361924, y: 0.12549841}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42bed2bd34fc881d0800000000000000
+      internalID: -3348198432602985692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_5
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 663
+        width: 571
+        height: 650
+      alignment: 9
+      pivot: {x: 0.5081764, y: 0.12569149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 947df7b5da351bb60800000000000000
+      internalID: 7760075636965627721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_6
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 636
+        width: 571
+        height: 650
+      alignment: 9
+      pivot: {x: 0.5081764, y: 0.12569138}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 097382240936ce650800000000000000
+      internalID: 6263490653001889680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_7
+      rect:
+        serializedVersion: 2
+        x: 2687
+        y: 638
+        width: 570
+        height: 648
+      alignment: 9
+      pivot: {x: 0.50409555, y: 0.12247712}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d2ee167902f6660800000000000000
+      internalID: 7381154148838681945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_8
+      rect:
+        serializedVersion: 2
+        x: 3345
+        y: 591
+        width: 571
+        height: 650
+      alignment: 9
+      pivot: {x: 0.5040884, y: 0.122100174}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62ead73e1cf054ea0800000000000000
+      internalID: -5889283612297286106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 784
+        height: 454
+      alignment: 9
+      pivot: {x: 0.5148869, y: 0.17995466}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e6f1db1827c37100800000000000000
+      internalID: 104646191439017704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_10
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 75
+        width: 834
+        height: 365
+      alignment: 9
+      pivot: {x: 0.5279888, y: 0.23022921}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf59472d2d78e1d20800000000000000
+      internalID: 3251185320551814651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_11
+      rect:
+        serializedVersion: 2
+        x: 1972
+        y: 218
+        width: 952
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c5761935e4ca4f10800000000000000
+      internalID: 2254831052236682692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Centipede_Die_12
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 220
+        width: 944
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd053f10afab94850800000000000000
+      internalID: 6361821531574849757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
